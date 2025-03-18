@@ -1,3 +1,4 @@
+// Form handling and UI interactions
 document.addEventListener('DOMContentLoaded', function() {
     // Check if the URL contains a success parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -8,16 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
         successMessage.textContent = 'Thank you for your application! We will be in touch soon.';
 
         const form = document.querySelector('.application-card form');
-        form.parentNode.insertBefore(successMessage, form);
+        if (form) {
+            form.parentNode.insertBefore(successMessage, form);
 
-        // Optionally, clear form fields
-        form.reset();
+            // Optionally, clear form fields
+            form.reset();
 
-        // Scroll to the success message
-        window.scrollTo({
-            top: document.querySelector('.application-section').offsetTop - 50,
-            behavior: 'smooth'
-        });
+            // Scroll to the success message
+            window.scrollTo({
+                top: document.querySelector('.application-section').offsetTop - 50,
+                behavior: 'smooth'
+            });
+        }
     }
 
     // Smooth scrolling for apply button
@@ -81,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.style.display = 'none';
                 // Show success message
                 document.querySelector('.form-success').style.display = 'block';
+
                 // Scroll to success message
                 document.querySelector('.form-success').scrollIntoView({
                     behavior: 'smooth',
