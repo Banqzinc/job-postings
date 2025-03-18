@@ -239,8 +239,11 @@
                 <h2 class="application-title">Apply Now</h2>
                 <p class="application-subtitle">We will look at your application and get back to you</p>
 
-                <form name="job-application" method="POST" data-netlify="true" action="/?success=true">
+                <form name="job-application" method="POST" data-netlify="true" action="/?success=true" netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="job-application">
+                    <div hidden>
+                        <input name="bot-field">
+                    </div>
 
                     <div class="form-group">
                         <label for="fullName">Full Name *</label>
