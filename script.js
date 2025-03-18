@@ -52,32 +52,46 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 
             // Show loading state
-            const submitButton = form.querySelector('.submit-btn');
+            const submitButton = form.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.textContent;
             submitButton.textContent = 'Submitting...';
             submitButton.disabled = true;
 
+            // Encode form data
             const formData = new FormData(form);
+            const searchParams = new URLSearchParams();
 
+            for (const pair of formData) {
+                searchParams.append(pair[0], pair[1]);
+            }
+
+            // Submit to Netlify
             fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(formData).toString()
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: searchParams.toString()
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error(response.statusText);
                 }
                 // Hide the form
                 form.style.display = 'none';
                 // Show success message
                 document.querySelector('.form-success').style.display = 'block';
                 // Scroll to success message
-                document.querySelector('.form-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                document.querySelector('.form-success').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('There was a problem submitting your application. Please try again.');
+            })
+            .finally(() => {
                 submitButton.textContent = originalButtonText;
                 submitButton.disabled = false;
             });

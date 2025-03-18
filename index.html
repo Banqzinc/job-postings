@@ -250,7 +250,17 @@
                     <p>We've received your application and will review it shortly.</p>
                 </div>
 
-                <form name="job-application" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="job-application-form">
+                <!-- Hidden form for Netlify detection -->
+                <form name="job-application" netlify netlify-honeypot="bot-field" hidden>
+                    <input type="text" name="fullName" />
+                    <input type="email" name="email" />
+                    <input type="tel" name="phone" />
+                    <input type="url" name="linkedin" />
+                    <textarea name="message"></textarea>
+                </form>
+
+                <!-- Actual form -->
+                <form name="job-application" method="POST" id="job-application-form">
                     <input type="hidden" name="form-name" value="job-application">
                     <div hidden>
                         <input name="bot-field">
