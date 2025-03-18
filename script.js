@@ -62,12 +62,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             fetch('/', {
                 method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
                 body: formData
             })
-            .then(response => {
+            .then(async response => {
+                const contentType = response.headers.get('content-type');
                 if (!response.ok) {
-                    throw new Error(response);
+                    const errorText = await response.text();
+                    console.error('Response status:', response.status);
+                    console.error('Response headers:', Object.fromEntries(response.headers));
+                    console.error('Response body:', errorText);
+                    throw new Error(`Form submission failed: ${response.status} ${response.statusText}`);
                 }
+
                 // Hide the form
                 form.style.display = 'none';
                 // Show success message
@@ -79,8 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('There was a problem submitting your application. Please try again.');
+                console.error('Submission error:', error);
+                alert('There was a problem submitting your application. Please try again. ' + error.message);
             })
             .finally(() => {
                 submitButton.textContent = originalButtonText;
