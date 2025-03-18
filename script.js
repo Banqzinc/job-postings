@@ -57,25 +57,16 @@ document.addEventListener('DOMContentLoaded', function() {
             submitButton.textContent = 'Submitting...';
             submitButton.disabled = true;
 
-            // Encode form data
+            // Get form data
             const formData = new FormData(form);
-            const searchParams = new URLSearchParams();
 
-            for (const pair of formData) {
-                searchParams.append(pair[0], pair[1]);
-            }
-
-            // Submit to Netlify
             fetch('/', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: searchParams.toString()
+                body: formData
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(response.statusText);
+                    throw new Error(response);
                 }
                 // Hide the form
                 form.style.display = 'none';
