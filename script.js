@@ -45,36 +45,42 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Form validation enhancement
-    const form = document.querySelector('form[name="job-application"]');
+    // Handle form submission
+    const form = document.querySelector('#job-application-form');
     if (form) {
         form.addEventListener('submit', function(e) {
-            let isValid = true;
-            const requiredInputs = form.querySelectorAll('input[required]');
+            e.preventDefault();
 
-            requiredInputs.forEach(input => {
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.classList.add('error');
-                } else {
-                    input.classList.remove('error');
+            // Show loading state
+            const submitButton = form.querySelector('.submit-btn');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
+
+            const formData = new FormData(form);
+
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
+                // Hide the form
+                form.style.display = 'none';
+                // Show success message
+                document.querySelector('.form-success').style.display = 'block';
+                // Scroll to success message
+                document.querySelector('.form-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was a problem submitting your application. Please try again.');
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
             });
-
-            if (!isValid) {
-                e.preventDefault();
-                const errorMessage = document.createElement('div');
-                errorMessage.className = 'form-error';
-                errorMessage.textContent = 'Please fill in all required fields.';
-
-                // Remove any existing error messages
-                const existingError = form.querySelector('.form-error');
-                if (existingError) {
-                    existingError.remove();
-                }
-
-                form.insertBefore(errorMessage, form.firstChild);
-            }
         });
     }
 });

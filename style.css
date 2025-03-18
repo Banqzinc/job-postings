@@ -329,30 +329,31 @@ footer {
 
 /* Add a success message styles for form submission */
 .form-success {
-    background: #00d563;
-    color: white;
-    padding: 18px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    display: none;
-    font-weight: 500;
-    box-shadow: 0 6px 15px rgba(0, 213, 99, 0.2);
+    text-align: center;
+    padding: 40px 20px;
 }
 
-.form-success.visible {
-    display: block;
-    animation: slideDown 0.5s ease;
+.form-success svg {
+    margin-bottom: 24px;
 }
 
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.form-success h2 {
+    color: #2B2B2B;
+    margin-bottom: 16px;
+    font-size: 24px;
+}
+
+.form-success p {
+    color: #505050;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Loading state for submit button */
+.submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 /* Tech stack pills */
