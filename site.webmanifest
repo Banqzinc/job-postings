@@ -1,0 +1,14 @@
+{
+    "name": "Quidkey Job Posting",
+    "short_name": "Quidkey Jobs",
+    "icons": [
+        {
+            "src": "https://quidkey.com/wp-content/uploads/2023/10/favicon.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        }
+    ],
+    "theme_color": "#000000",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}
