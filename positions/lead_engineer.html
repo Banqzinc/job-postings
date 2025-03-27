@@ -257,7 +257,7 @@
                 </div>
 
                 <!-- Actual form -->
-                <form name="job-application" method="POST" netlify netlify-honeypot="bot-field" id="job-application-form">
+                <form name="job-application" method="POST" netlify netlify-honeypot="bot-field" id="job-application-form" enctype="multipart/form-data">
                     <input type="hidden" name="form-name" value="job-application">
                     <div hidden>
                         <input name="bot-field">
@@ -276,6 +276,11 @@
                     <div class="form-group">
                         <label for="phone">Phone Number *</label>
                         <input type="tel" id="phone" name="phone" required placeholder="Your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cv">CV/Resume *</label>
+                        <input type="file" id="cv" name="cv" required accept=".pdf,.doc,.docx">
                     </div>
 
                     <div class="form-group">
